@@ -30,7 +30,7 @@ import com.ydt.oa.service.RoleManageService;
 
 /**
  * 后台管理权限过滤器
- * @author caochun gg
+ * @author caochun szz
  *
  */
 public class WebClientFilter implements Filter {
