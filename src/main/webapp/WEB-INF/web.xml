@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee      http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+ <description>oa</description>
+ <display-name>oa</display-name>
+ <context-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>/WEB-INF/classes/spring/*-cfg.xml</param-value>
+ </context-param>
+ <filter>
+  <filter-name>encoding</filter-name>
+  <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  <init-param>
+   <param-name>encoding</param-name>
+   <param-value>UTF-8</param-value>
+  </init-param>
+  <init-param>
+   <param-name>forceEncoding</param-name>
+   <param-value>true</param-value>
+  </init-param>
+ </filter>
+ <!-- 使用spring管理Hibernate的延迟加载功能 -->
+ <filter>
+  <filter-name>hibReqSessionFilter</filter-name>
+  <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+ </filter>
+ <filter>
+  <filter-name>webFilter</filter-name>
+  <filter-class>com.ydt.oa.filter.WebClientFilter</filter-class>
+ </filter>
+ <filter>
+  <filter-name>struts2</filter-name>
+  <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  <init-param>
+   <param-name>actionPackages</param-name>
+   <param-value>com.ydt.oa.action</param-value>
+  </init-param>
+ </filter>
+ <filter-mapping>
+  <filter-name>hibReqSessionFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+ </filter-mapping>
+ <filter-mapping>
+  <filter-name>webFilter</filter-name>
+  <url-pattern>*.action</url-pattern>
+ </filter-mapping>
+ <filter-mapping>
+  <filter-name>struts2</filter-name>
+  <url-pattern>*.action</url-pattern>
+ </filter-mapping>
+
+ <listener>
+  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+ </listener>
+  <!-- 配置图形验证码Servlet -->
+ <servlet>
+  <servlet-name>ChcekCodeServlet</servlet-name>
+  <servlet-class>com.ydt.oa.servlet.CheckCodePicServlet</servlet-class>
+ </servlet>
+
+ 
+
+ <!-- 为图形验证码Servlet指定URL -->
+ <servlet-mapping>
+  <servlet-name>ChcekCodeServlet</servlet-name>
+  <url-pattern>/checkcode.jpg</url-pattern>
+ </servlet-mapping>
+ <welcome-file-list>
+  <welcome-file>login.jsp</welcome-file>
+ </welcome-file-list>
+</web-app>
